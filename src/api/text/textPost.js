@@ -1,11 +1,17 @@
 import { textList } from "../../pages/home.js";
 
-export function textPost(req, res) {  
+export function textPost(req, res) {
+    if (typeof req.body === 'object' && typeof req.body.text === 'string') {
+        textList.push(req.body.text);
 
-textList.push(req.body.text);
+        return res.json({
+            status: 'success',
+            msg: 'Sukurtas naujas tekstas',
+        });
+    }
 
-      return res.json({
-        status: 'success',
-        msg: 'Sukurtas naujas tekstas',
+    return res.json({
+        status: 'error',
+        msg: 'Teksto sukurti nepavyko',
     });
 }
